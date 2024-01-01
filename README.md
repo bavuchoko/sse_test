@@ -7,7 +7,7 @@ SSE 테스트
 
 1.리소스 폴더에 application-database.properties 파일에 본인 db 접속정보 설정
 
-2. ~~~/sse/data 로 일단 임의 경기 생성
+2. 먼저 ~~~/sse/data 로 일단 임의 경기 생성
 
 3. 브라우저에서 ~~~/sse/{id}/subscribe 로 구독
 
