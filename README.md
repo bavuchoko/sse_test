@@ -5,7 +5,7 @@ SSE 테스트
 -경기별로 선수가 참가할때 기존 선수들에게 새로운 선수 입장을 실시간으로 업데이트 해줄 수 있는지 테스트
 -최초 경기 생성시 참가 선수가 없고 broadcast 요청시점이 1번 선수가 참가했을 때 라는 가정으로서 broadcast에서 1번 선수를 참가시키고 해당 경기 정보를 브로드캐스트 한다
 
-1.리소스 폴더에 application-database.properties 파일에 본인 db 접속정보 설정
+1. 리소스 폴더에 application-database.properties 파일에 본인 db 접속정보 설정
 
 2. 먼저 ~~~/sse/data 로 일단 임의 경기 생성
 

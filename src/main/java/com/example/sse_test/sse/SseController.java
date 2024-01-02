@@ -51,7 +51,9 @@ public class SseController {
                 userEmitters.remove(1, emitter);
             }
         });
-        return ResponseEntity.ok(emitter);
+        return ResponseEntity.ok()
+                .header("X-Accel-Buffering", "no")
+                .body(emitter);
     }
 
 

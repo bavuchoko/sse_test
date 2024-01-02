@@ -3,10 +3,12 @@ package com.example.sse_test.sse.service;
 import com.example.sse_test.sse.entity.Player;
 import com.example.sse_test.sse.entity.SseTest;
 import com.example.sse_test.sse.repository.SseJpaRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -96,16 +98,18 @@ public class SseTestService {
         addPlayer(id);
         SseTest sseTest = sseJpaRepository.findById(id).get();
         Map<Integer, SseEmitter> userEmitters = emitterMap.get(id);
-
+        EntityModel model = EntityModel.of(sseTest);
         if (userEmitters != null) {
             for (SseEmitter emitter : userEmitters.values()) {
                 try {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    String jsonPayload = objectMapper.writeValueAsString(model);
                     emitter.send(SseEmitter.event()
                             .name("update")
-                            .data(sseTest, MediaType.APPLICATION_JSON));
+                            .data(jsonPayload, MediaTypes.HAL_JSON));
                     log.info("sended notification, id={}, payload={}", id, sseTest);
                 } catch (Exception e) {
-                    log.error("fail to send emitter id={}, {}", id, e.getMessage());
+                    e.printStackTrace();
                 }
             }
         }
